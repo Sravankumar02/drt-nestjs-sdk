@@ -1,6 +1,6 @@
 {
   "name": "@sravankumar02/sdk-nestjs-monitoring",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "Dharitri SDK Nestjs monitoring package",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -40,5 +40,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "53f819f5baa585e0d76ed25eac693a039cdc1bb4"
 }
