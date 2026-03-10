@@ -1,6 +1,6 @@
 {
   "name": "@sravankumar02/sdk-nestjs-common",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "Dharitri SDK Nestjs common package",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -48,5 +48,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "53f819f5baa585e0d76ed25eac693a039cdc1bb4"
+  "gitHead": "b8d2b11ab872fd1f09ea2b030df2a41e31f57c9f"
 }
