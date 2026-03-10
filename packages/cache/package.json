@@ -40,11 +40,11 @@
     "uuid": "^8.3.2"
   },
   "peerDependencies": {
+    "@nestjs/common": "^10.x",
+    "@nestjs/core": "^10.x",
     "@sravankumar02/sdk-nestjs-common": "^6.0.0",
     "@sravankumar02/sdk-nestjs-monitoring": "^6.0.0",
-    "@sravankumar02/sdk-nestjs-redis": "^6.0.0",
-    "@nestjs/common": "^10.x",
-    "@nestjs/core": "^10.x"
+    "@sravankumar02/sdk-nestjs-redis": "^6.0.0"
   },
   "publishConfig": {
     "access": "public"
