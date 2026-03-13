@@ -1,0 +1,46 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  common:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+          cache-dependency-path: ./package-lock.json
+
+      - run: npx lerna@6 bootstrap
+      - run: npx lerna@6 run build
+
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo " - @sravankumar02/sdk-nestjs-common [npm](https://www.npmjs.com/package/@sravankumar02/sdk-nestjs-common)" >> notes.txt
+          echo " - @sravankumar02/sdk-nestjs-auth [npm](https://www.npmjs.com/package/@sravankumar02/sdk-nestjs-auth)" >> notes.txt
+          echo " - @sravankumar02/sdk-nestjs-http [npm](https://www.npmjs.com/package/@sravankumar02/sdk-nestjs-http)" >> notes.txt
+          echo " - @sravankumar02/sdk-nestjs-monitoring [npm](https://www.npmjs.com/package/@sravankumar02/sdk-nestjs-monitoring)" >> notes.txt
+          echo " - @sravankumar02/sdk-nestjs-elastic [npm](https://www.npmjs.com/package/@sravankumar02/sdk-nestjs-elastic)" >> notes.txt
+          echo " - @sravankumar02/sdk-nestjs-redis [npm](https://www.npmjs.com/package/@sravankumar02/sdk-nestjs-redis)" >> notes.txt
+          echo " - @sravankumar02/sdk-nestjs-rabbitmq [npm](https://www.npmjs.com/package/@sravankumar02/sdk-nestjs-rabbitmq)" >> notes.txt
+          echo " - @sravankumar02/sdk-nestjs-cache [npm](https://www.npmjs.com/package/@sravankumar02/sdk-nestjs-cache)" >> notes.txt
+          echo "" >> notes.txt
+
+          RELEASE_TAG=v$(node -p "require('./lerna.json').version")
+          gh release create $RELEASE_TAG --target=$GITHUB_SHA --title="$RELEASE_TAG" --generate-notes --notes-file=notes.txt
+
+      - name: Publish to npmjs
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        run: npx lerna@6 publish from-package --yes
